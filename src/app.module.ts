@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from './users/users.module';
+import { DogsModule } from './dogs/dogs.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -15,7 +17,6 @@ import * as Joi from '@hapi/joi';
         DB_NAME: Joi.string().required(),
         DB_USER: Joi.string().required(),
         DB_PASS: Joi.string().required(),
-        MESSAGE: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRoot({
@@ -29,6 +30,8 @@ import * as Joi from '@hapi/joi';
       // synchronize es perjudicial en producción, no usar en equipos
       synchronize: false, // inspeccionar nuestras entidades y generar una tabla en la db
     }),
+    UsersModule,
+    DogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
